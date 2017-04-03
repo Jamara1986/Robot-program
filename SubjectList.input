@@ -1,0 +1,31 @@
+ID                      s
+Age                     i
+Gender			s
+Intention               s
+Order			s
+END
+101	34	F	IG	EI
+102	50	M	IG	IE
+103	27	M	NIG	IE
+104	33	F	NIG	IE
+105	33	M	IG	IE
+106	25	F	NIG	IE
+107	30	F	IG	IE
+108	46	M	NIG	IE
+109	27	F	IG	IE
+110	22	F	IG	IE
+111     30      F       IG      IE
+112     30      F       IG      IE
+113     30      F       NIG     IE
+114     30      F       NIG     IE
+115     28      M       IG      EI
+116     27      M       IG      EI
+117     24      M       IG      EI
+118     23      F       IG      EI
+119     22      M       IG      EI
+120     26      M       IG      EI
+121     42      M       IG      EI
+122     41      F       IG      EI
+123     28      M       IG      EI
+124     53      M       IG      EI
+125     30      F       IG      EI

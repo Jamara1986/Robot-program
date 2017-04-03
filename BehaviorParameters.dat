@@ -1,0 +1,52 @@
+PointLocationFile						s	PointLocationsNew.dat
+move_handle_to_intialLocationX[counts]	                        d	1000
+move_handle_to_intialLocationY[counts]	                        d	-700
+move_originX[cm]						d	-42
+move_originY[cm]						d	23
+OriginRadius[cm]						d	0.5
+OriginHitRadius[cm]						d	2.0
+OriginColor							c	w
+ITITargetRadius[cm]						d	0.7
+ITITargetColor							c	b
+TargetDrawRadius[cm]					        d	0.7
+TargetHitRadius[cm]						d	1.0
+TargetInitialColor						c	w
+TargetHoldColor                         			c   	r
+TargetGoColor							c	r
+IntentionSpacing[deg]						d	7
+IntentionFontsize[pts]						i	14
+IntentionColor							c	w
+TargetITIColor							c	r
+DisplayCursorDistance[cm]               			d   	2.0
+DisplayCursorDistanceTarget[cm]					d	0.5
+ShowOriginRadius[cm]                    			d       2.0
+OriginHoldTime[ms]						d	50
+TrialTime[ms]							d	400
+TrialWindow[ms]							d	100
+MaxPushToOriginTime[ms]	                			d   	5000
+EndpointRadius[cm]						d	0.3
+EndpointColor							c	g
+PositionFeedback						c	k
+TrialFeedbackTime[ms]						d	1000
+MaxTrialTime[ms]						d	1000	
+MovementSpeedThreshold[cm/ms]					d	0.005	# changed from 0.001	
+ShoulderX[cm]							d	70		# Location of shoulder (cm)
+ShoulderY[cm]							d	50
+UpperArmLength[cm]						d	10		# Average length for an upper arm
+ForeArmLength[cm]						d	10
+MaxReactionTime[ms]						d	1000	
+DampingTime[ms]							d	300
+MaxPushbackTime[ms]						d	2000
+#PlaySuccessSound						i	1
+#PlayMissSound							i	0
+#PlayFastSound							i	0
+#PlaySlowSound							i	0
+SuccessSoundFile						s	successSoundFile.wav
+MissSoundFile							s	missSoundFile.wav
+FastSoundFile							s	fastSoundFile.wav
+SlowSoundFile							s	slowSoundFile.wav
+BreakThreshold[ms]						d	50000
+ITIThreshold[ms]						d	12000
+CorrectionX[cm]							d	0;
+CorrectionY[cm]							d	0; # This shifts the position of the cursor which can be helpful when using monitor projection
+END

@@ -1,0 +1,195 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ILLEGAL_INSTRUCTION (0xc000001d) at pc=0x00000000021a0596, pid=3860, tid=3828
+#
+# JRE version:  (7.0_60-b19) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.60-b09 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# v  ~StubRoutines::call_stub
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000001ec1000):  JavaThread "Reference Handler" daemon [_thread_in_Java, id=3828, stack(0x00000000091a0000,0x00000000092a0000)]
+
+siginfo: ExceptionCode=0xc000001d
+
+Registers:
+RAX=0x000000000929fcb8, RBX=0x00000000021a0567, RCX=0x000000000929fad0, RDX=0x000000000929fd88
+RSP=0x000000000929f9a8, RBP=0x000000000929fa80, RSI=0x0000000001ec1000, RDI=0x0000000000000000
+R8 =0x000000000000000a, R9 =0x00000000bb8c7330, R10=0x00000000bb8c7330, R11=0x0000000000000001
+R12=0x000000000929fd80, R13=0x000000000929fba8, R14=0x000000000929fcb0, R15=0x00000000021b0840
+RIP=0x00000000021a0596, EFLAGS=0x0000000000010212
+
+Top of Stack: (sp=0x000000000929f9a8)
+0x000000000929f9a8:   0000000000000000 0000000000000000
+0x000000000929f9b8:   000000006ef06502 0000000001ec1000
+0x000000000929f9c8:   000000006edc9555 0000000000000000
+0x000000000929f9d8:   0000000001ec1000 0000000000000000
+0x000000000929f9e8:   000000006ef002e5 0000000001e26aa0
+0x000000000929f9f8:   000000000929fc01 000000000929fd80
+0x000000000929fa08:   0000000000000130 0000000001e3efa0
+0x000000000929fa18:   000000006eefef17 0000000001e26aa0
+0x000000000929fa28:   000000006eeef86f 000000000929fd80
+0x000000000929fa38:   0000000000000000 0000000001ec1000
+0x000000000929fa48:   00000000021b0840 000000000929fcb0
+0x000000000929fa58:   000000000929fba8 000000000929fd80
+0x000000000929fa68:   0000000001de0340 000000000929fd80
+0x000000000929fa78:   00000000021a0567 000000000929fc00
+0x000000000929fa88:   000000006eefe043 000000000929fad0
+0x000000000929fa98:   000000000929fd88 000000000000000a 
+
+Instructions: (pc=0x00000000021a0596)
+0x00000000021a0576:   44 89 45 20 48 89 55 18 48 89 4d 10 48 89 5d f8
+0x00000000021a0586:   4c 89 65 e0 4c 89 6d d8 4c 89 75 d0 4c 89 7d c8
+0x00000000021a0596:   c5 fa 7f 75 b8 c5 fa 7f 7d a8 c5 7a 7f 45 98 c5
+0x00000000021a05a6:   7a 7f 4d 88 c5 7a 7f 95 78 ff ff ff c5 7a 7f 9d 
+
+
+Register to memory mapping:
+
+RAX=0x000000000929fcb8 is pointing into the stack for thread: 0x0000000001ec1000
+RBX=0x00000000021a0567 is at begin+0 in a stub
+StubRoutines::call_stub [0x00000000021a0567, 0x00000000021a06cb[ (356 bytes)
+RCX=0x000000000929fad0 is pointing into the stack for thread: 0x0000000001ec1000
+RDX=0x000000000929fd88 is pointing into the stack for thread: 0x0000000001ec1000
+RSP=0x000000000929f9a8 is pointing into the stack for thread: 0x0000000001ec1000
+RBP=0x000000000929fa80 is pointing into the stack for thread: 0x0000000001ec1000
+RSI=0x0000000001ec1000 is a thread
+RDI=0x0000000000000000 is an unknown value
+R8 =0x000000000000000a is an unknown value
+R9 =0x00000000bb8c7330 is an oop
+{method} 
+ - klass: {other class}
+R10=0x00000000bb8c7330 is an oop
+{method} 
+ - klass: {other class}
+R11=0x0000000000000001 is an unknown value
+R12=0x000000000929fd80 is pointing into the stack for thread: 0x0000000001ec1000
+R13=0x000000000929fba8 is pointing into the stack for thread: 0x0000000001ec1000
+R14=0x000000000929fcb0 is pointing into the stack for thread: 0x0000000001ec1000
+R15=0x00000000021b0840 is at code_begin+0 in an Interpreter codelet
+method entry point (kind = zerolocals)  [0x00000000021b0840, 0x00000000021b0b40]  768 bytes
+
+
+Stack: [0x00000000091a0000,0x00000000092a0000],  sp=0x000000000929f9a8,  free space=1022k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0x1ce043]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000000001ec2000 JavaThread "Finalizer" daemon [_thread_in_Java, id=3936, stack(0x00000000092a0000,0x00000000093a0000)]
+=>0x0000000001ec1000 JavaThread "Reference Handler" daemon [_thread_in_Java, id=3828, stack(0x00000000091a0000,0x00000000092a0000)]
+  0x0000000001e3c000 JavaThread "main" [_thread_in_vm, id=4036, stack(0x0000000002070000,0x0000000002170000)]
+
+Other Threads:
+  0x0000000001ebe800 VMThread [stack: 0x00000000090a0000,0x00000000091a0000] [id=2804]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 19456K, used 338K [0x00000000eae00000, 0x00000000ec380000, 0x0000000100000000)
+  eden space 16896K, 2% used [0x00000000eae00000,0x00000000eae54818,0x00000000ebe80000)
+  from space 2560K, 0% used [0x00000000ec100000,0x00000000ec100000,0x00000000ec380000)
+  to   space 2560K, 0% used [0x00000000ebe80000,0x00000000ebe80000,0x00000000ec100000)
+ ParOldGen       total 43008K, used 0K [0x00000000c0a00000, 0x00000000c3400000, 0x00000000eae00000)
+  object space 43008K, 0% used [0x00000000c0a00000,0x00000000c0a00000,0x00000000c3400000)
+ PSPermGen       total 21504K, used 933K [0x00000000bb800000, 0x00000000bcd00000, 0x00000000c0a00000)
+  object space 21504K, 4% used [0x00000000bb800000,0x00000000bb8e9fb8,0x00000000bcd00000)
+
+Card table byte_map: [0x0000000005260000,0x0000000005490000] byte_map_base: 0x0000000004c84000
+
+Polling page: 0x0000000002170000
+
+Code Cache  [0x00000000021a0000, 0x0000000002410000, 0x00000000051a0000)
+ total_blobs=76 nmethods=0 adapters=52 free_code_cache=48817Kb largest_free_block=49989184
+
+Compilation events (0 events):
+No events
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.019 loading class 0x0000000007ebcf30 done
+Event: 0.019 loading class 0x0000000007eb9b40
+Event: 0.020 loading class 0x0000000007eb9b40 done
+Event: 0.020 loading class 0x0000000007ec15f0
+Event: 0.020 loading class 0x0000000007ec15f0 done
+Event: 0.020 loading class 0x0000000007ec1620
+Event: 0.020 loading class 0x0000000007ec1620 done
+Event: 0.020 Thread 0x0000000001ec1000 Thread added: 0x0000000001ec1000
+Event: 0.020 loading class 0x0000000007ec1660
+Event: 0.020 loading class 0x0000000007ec1660 done
+
+
+Dynamic libraries:
+0x0000000140000000 - 0x0000000140033000 	C:\Program Files\MATLAB\R2015a\sys\java\jre\win64\jre\bin\java.exe
+0x0000000077ec0000 - 0x0000000077ffc000 	C:\WINDOWS\system32\ntdll.dll
+0x0000000077d40000 - 0x0000000077eb6000 	C:\WINDOWS\system32\kernel32.dll
+0x000007ff7fee0000 - 0x000007ff7ffe6000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x000007ff7fd30000 - 0x000007ff7fed5000 	C:\WINDOWS\system32\RPCRT4.dll
+0x000007ff7e9c0000 - 0x000007ff7e9e2000 	C:\WINDOWS\system32\Secur32.dll
+0x0000000077c20000 - 0x0000000077d2c000 	C:\WINDOWS\system32\USER32.dll
+0x000007ff7fc90000 - 0x000007ff7fd2c000 	C:\WINDOWS\system32\GDI32.dll
+0x000007ff7f000000 - 0x000007ff7f187000 	C:\WINDOWS\WinSxS\AMD64_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.3790.5190_x-ww_639C4A9E\COMCTL32.dll
+0x000007ff7fc00000 - 0x000007ff7fc86000 	C:\WINDOWS\system32\msvcrt.dll
+0x000007ff7ef60000 - 0x000007ff7effb000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x000007ff7d500000 - 0x000007ff7d539000 	C:\WINDOWS\system32\IMM32.DLL
+0x000007ff69300000 - 0x000007ff6930d000 	C:\WINDOWS\system32\LPK.DLL
+0x000007ff78e80000 - 0x000007ff78f0e000 	C:\WINDOWS\system32\USP10.dll
+0x0000000079730000 - 0x0000000079802000 	C:\Program Files\MATLAB\R2015a\sys\java\jre\win64\jre\bin\msvcr100.dll
+0x000000006ed30000 - 0x000000006f502000 	C:\Program Files\MATLAB\R2015a\sys\java\jre\win64\jre\bin\server\jvm.dll
+0x000007ff770f0000 - 0x000007ff770fa000 	C:\WINDOWS\system32\WSOCK32.dll
+0x000007ff77310000 - 0x000007ff77340000 	C:\WINDOWS\system32\WS2_32.dll
+0x000007ff77140000 - 0x000007ff7714c000 	C:\WINDOWS\system32\WS2HELP.dll
+0x000007ff7e240000 - 0x000007ff7e290000 	C:\WINDOWS\system32\WINMM.dll
+0x000007ff7e380000 - 0x000007ff7e390000 	C:\WINDOWS\system32\PSAPI.DLL
+0x000000006ea30000 - 0x000000006ea3f000 	C:\Program Files\MATLAB\R2015a\sys\java\jre\win64\jre\bin\verify.dll
+0x000000006d540000 - 0x000000006d568000 	C:\Program Files\MATLAB\R2015a\sys\java\jre\win64\jre\bin\java.dll
+0x000000006eab0000 - 0x000000006eac5000 	C:\Program Files\MATLAB\R2015a\sys\java\jre\win64\jre\bin\zip.dll
+0x000007ff724e0000 - 0x000007ff7261e000 	C:\WINDOWS\system32\dbghelp.dll
+0x000007ff7fbf0000 - 0x000007ff7fbfb000 	C:\WINDOWS\system32\VERSION.dll
+
+VM Arguments:
+java_command: com.mathworks.fatalexit.FatalExitFrame C:\DOCUME~1\maresch\LOCALS~1\Temp\matlab_crash_dump.2068-1 -lucky
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Program Files\MATLAB\R2015a\bin\win64;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\MATLAB\R2015a\runtime\win64;C:\Program Files\MATLAB\R2015a\bin
+USERNAME=maresch
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=EM64T Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP x64 Edition Build 3790 Service Pack 2
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, tsc, tscinvbit
+
+Memory: 4k page, physical 4151332k(2544276k free), swap 5995324k(4412212k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (24.60-b09) for windows-amd64 JRE (1.7.0_60-b19), built on May  7 2014 12:55:18 by "java_re" with unknown MS VC++:1600
+
+time: Fri Feb 10 10:44:06 2017
+elapsed time: 0 seconds
+

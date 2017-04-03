@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9425E52-90BF-48EC-A1B1-70E4D9B836B3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RobotProgramNew</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <PlatformToolset>v100</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutDir)RobotProgram New.exe</OutputFile>
+      <AdditionalDependencies>DMC32.lib;DMCMLIB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>DMC32.lib;DMCMLIB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Include\MMSystem.h" />
+    <ClInclude Include="Sourcefiles\AccurateTimer.h" />
+    <ClInclude Include="Sourcefiles\Colors.h" />
+    <ClInclude Include="Sourcefiles\Cursor.h" />
+    <ClInclude Include="Sourcefiles\DataArray.h" />
+    <ClInclude Include="Sourcefiles\DecideFeedback.h" />
+    <ClInclude Include="Sourcefiles\definition.h" />
+    <ClInclude Include="Sourcefiles\Dmccom.h" />
+    <ClInclude Include="Sourcefiles\dmcdrc.h" />
+    <ClInclude Include="Sourcefiles\dmcdrco.h" />
+    <ClInclude Include="Sourcefiles\DMCMLIB.H" />
+    <ClInclude Include="Sourcefiles\Drawings.h" />
+    <ClInclude Include="Sourcefiles\ErrorHandler.h" />
+    <ClInclude Include="Sourcefiles\ForceProgram.h" />
+    <ClInclude Include="Sourcefiles\GalilController.h" />
+    <ClInclude Include="Sourcefiles\GlobalStuff.h" />
+    <ClInclude Include="Sourcefiles\GUI1.h" />
+    <ClInclude Include="Sourcefiles\IntentionDisplay.h" />
+    <ClInclude Include="Sourcefiles\KalmanFilter.h" />
+    <ClInclude Include="Sourcefiles\Keyboard.h" />
+    <ClInclude Include="Sourcefiles\Matrix.h" />
+    <ClInclude Include="Sourcefiles\Parameters.h" />
+    <ClInclude Include="Sourcefiles\resource.h" />
+    <ClInclude Include="Sourcefiles\Robot.h" />
+    <ClInclude Include="Sourcefiles\stdafx.h" />
+    <ClInclude Include="Sourcefiles\Subjects.h" />
+    <ClInclude Include="Sourcefiles\Target.h" />
+    <ClInclude Include="Sourcefiles\Text.h" />
+    <ClInclude Include="Sourcefiles\Trials.h" />
+    <ClInclude Include="Sourcefiles\WriteToExternalFile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sourcefiles\Cursor.cpp" />
+    <ClCompile Include="Sourcefiles\DecideFeedback.cpp" />
+    <ClCompile Include="Sourcefiles\definition.cpp" />
+    <ClCompile Include="Sourcefiles\Drawings.cpp" />
+    <ClCompile Include="Sourcefiles\ErrorHandler.cpp" />
+    <ClCompile Include="Sourcefiles\ForceProgram.cpp" />
+    <ClCompile Include="Sourcefiles\GalilController.cpp" />
+    <ClCompile Include="Sourcefiles\GlobalStuff.cpp" />
+    <ClCompile Include="Sourcefiles\GUI1.cpp" />
+    <ClCompile Include="Sourcefiles\IntentionDisplay.cpp" />
+    <ClCompile Include="Sourcefiles\Keyboard.cpp" />
+    <ClCompile Include="Sourcefiles\Parameters.cpp" />
+    <ClCompile Include="Sourcefiles\Robot.cpp" />
+    <ClCompile Include="Sourcefiles\stdafx.cpp" />
+    <ClCompile Include="Sourcefiles\Subjects.cpp" />
+    <ClCompile Include="Sourcefiles\Target.cpp" />
+    <ClCompile Include="Sourcefiles\Text.cpp" />
+    <ClCompile Include="Sourcefiles\trials.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Sourcefiles\GUI1.ico" />
+    <None Include="Sourcefiles\icon1.ico" />
+    <None Include="Sourcefiles\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Sourcefiles\GUI1.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

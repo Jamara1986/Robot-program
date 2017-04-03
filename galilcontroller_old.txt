@@ -1,0 +1,57 @@
+void GalilController::saveDataOff()
+{
+	_savingData = false;
+}
+
+
+int GalilController::read2ndFIFOChannel()
+{
+	CDMCFullDataRecord2 *DataRecordArray;
+	USHORT numDataRecords=0;	//contains how many samples are there in current DataRecordArray
+	
+	long rc = DMCGetDataRecordArray2(hdmc, &DataRecordArray, &numDataRecords);
+	if(rc!=0) {
+		handleError("can't get data record from secondary FIFO", "GalilController::read2ndFIFOchannel");
+	}
+
+	unsigned short biggestSampleDifference = 0;
+	CDMCFullDataRecord2* lastRecord = NULL;
+	for (int recordNum = 0; recordNum < numDataRecords; recordNum++) {
+		CDMCFullDataRecord2* thisRecord = &(DataRecordArray[recordNum]);
+
+		short sampleDifference = thisRecord->SampleNumber - _lastSampleReadShort;
+		thisRecord->SampleNumber = sampleDifference;
+		if (sampleDifference > biggestSampleDifference) {
+			biggestSampleDifference = sampleDifference;
+			lastRecord = thisRecord;
+		}
+	}
+	_lastSampleReadShort = _lastSampleReadShort + biggestSampleDifference;
+
+	if (savingData()) {
+		//save all current data from FIFO to a temp array
+		for (int counterData=0; counterData<numDataRecords; counterData++)
+		{
+			CDMCFullDataRecord2* thisRecord = &(DataRecordArray[counterData]);
+			if (thisRecord->SampleNumber > 0) {
+				galilDataStruct temp = {
+					thisRecord->SampleNumber + _currentSampleNumber,
+					thisRecord->AxisInfo[0].MotorPosition,
+					thisRecord->AxisInfo[1].MotorPosition,
+					thisRecord->AxisInfo[0].Torque,
+					thisRecord->AxisInfo[1].Torque
+				};
+
+				savedValuesArray.push_back(temp);
+			}
+		}
+	}
+	if (lastRecord) {
+		_currentSampleNumber = lastRecord->SampleNumber + _currentSampleNumber;
+		_currentPosition.x = lastRecord->AxisInfo[0].MotorPosition * _counts2Rads;
+		_currentPosition.y = lastRecord->AxisInfo[1].MotorPosition * _counts2Rads;
+		_currentTorque.x = lastRecord->AxisInfo[0].Torque * _returnVal2Torque;
+		_currentTorque.y = lastRecord->AxisInfo[1].Torque * _returnVal2Torque;	
+	}
+	return numDataRecords;
+}

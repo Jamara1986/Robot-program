@@ -1,0 +1,46 @@
+ Rob2CartesCalibrationFile	s	RegressBetaRob2Cart.txt
+Cartes2RobCalibrationFile	s	RegressBetaCart2Rob.txt
+GalilProgram				s	GalilProgramPIDDirections2.dmc
+SubjectListFile				s	SubjectList.input
+GalilStartLabel				s	START
+GalilTimeFactor				d	0.976		# Galil thinks 976 usec is actually 1 msec
+SampleRateForce[usec]			i	250			# Sample rate for force generation loop 250(*0.976) usec
+SampleRateCode[usec]			i	2000		# Sample rate for c++ program data (*0.976 for 'real' rate)
+maxOffset[V]					d	9.998
+encoderPPR						i	1000000		# External encoders, points per rotation, 2,500,000*4
+Kt[N*cm/A]						d	1.4			# torque constant, [N*cm/A]
+Vmax[V]							d	10.0		# Maximum command voltage [V]
+Imax[A]							d	3.1			# Maximum current in engine [A]
+MaxTorqueValue					i	32544		# Value returned by Galil when torque is at Vmax
+VelocityFilterTau[sec]			d	0.010		# Time constant on velocity smoothing [sec]
+ForceRampTime[sec]				d	4			# Time to ramp to full force [sec]
+RobotPixelsX					i	1280		# Size of the window drawn
+RobotPixelsY					i	1024		# X = from position of subject to wall (Rotterdam) 
+RobotScreenBottomLeftX[cm]		d	0		# The coordinate (in cm) of the bottom left of the screen
+RobotScreenBottomLeftY[cm]		d	0		# Y = position from left wall to computer (Rotterdam)
+RobotScreenTopRightX[cm]		d	43.5	# The coordinate (in cm) of the top right of the screen
+RobotScreenTopRightY[cm]		d	35.2
+SubjectPixelsX					i	1280 # Size of the window drawn for subject 
+SubjectPixelsY					i	1024		# Keep the same with Robot Screen for beamer projection
+SubjectScreenBottomLeftX[cm] 	d	0		# 
+SubjectScreenBottomLeftY[cm] 	d	0		# 
+SubjectScreenTopRightX[cm]	 	d	43.5	# Set to monitor size for monitor projection
+SubjectScreenTopRightY[cm]		d	35.2		# Monitor in rotterdam = 22 x 27.4
+ScreenGridSize[Cm]				d	6
+ScreenGridThickness[Pixels]		i	3
+ShoulderResetPos[counts]		i	-243300 # Counts on the encoder for the reset position
+ElbowResetPos[counts]			i	244011	# New values with new arm Juli 2015. Found by pushon=1, DP=0, pushon=0, turn to max position, TP
+RobotCalibXMin[cm]				d	10
+RobotCalibXMax[cm]				d	30
+RobotCalibXStep[cm]				d	5
+RobotCalibYMin[cm]				d	10
+RobotCalibYMax[cm]				d	30
+RobotCalibYStep[cm]				d	5
+RobotCalibDotRadius[cm]			d	0.5
+L1[cm]							d	27.5		# Length of robot upper arm (cm)
+L2[cm]							d	34			# Length of robot forearm (cm)
+BehavioralDataTimeStep[ms]		d	2			# sampling rate
+ForceFieldParameters[Ncm/s]		d	0.15		# Strength of viscous forcefield [Ncm/s], will be overwritten by inputfiles
+ShoulderJointConfiguration  	s	-x+y		#  +x+y, +x-y, -x+y, -x-y, +y+x, +y-x, -y+x, -y-x. The first direction is the zero point for the shoulder joint. The second direction is the 90 degree point, so that gives the positive direction. Thus, canonical joint configuration is +x+y
+ElbowJointConfiguration  		s	-y+x		#  +x+y, +x-y, -x+y, -x-y, +y+x, +y-x, -y+x, -y-x.
+END

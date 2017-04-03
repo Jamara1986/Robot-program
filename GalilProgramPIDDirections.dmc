@@ -1,0 +1,281 @@
+#START
+' First do all the intializations
+'
+' Robot constants 
+' we should change these from within the c++ code to correct values
+' Set sampling period
+TM250
+' Shoulder to elbow (cm)
+l1 = 27.5 
+' Elbow to handle (cm)
+l2 = 34 
+' deg / rad
+rad2deg = 180/3.1415
+' Max current for motors (Amps)
+imax = 3.1 
+' Voltage command for max current (Volts)
+vmax = 10.0 
+' Torque per current (N cm / A)
+kt = 1.4   
+' 1,000,000 encoder counts for a full circle
+rad2enc = 500000/3.14159 
+deg2enc = 500000/180
+' Motor directions and zeros
+' Positive directions are always counter-clockwise (when viewed from above)
+' Zero direction is to the right and offset increases in the counter-clockwise 
+' direction. It is given in degrees
+' t = shoulder (TPX)
+' p = elbow (TPY)
+toffs = 180
+tdir = -1
+poffs = 270
+pdir = 1
+
+' Convert desired torque to required voltage offset (V / N cm)
+t2of = vmax / (imax*kt) 
+' Max possible offset
+maxof = 9.998
+
+' Set parameters of the modes to dummy values
+'
+' Push to point parameters
+' Initialized to the 0,0 position of the robot
+'
+' Point to push to, x value (cm)
+pushx = -l1 
+' Point to push to, y value
+pushy = -l2  
+' Set ramp to 0 to ramp up pushing forces
+dampramp = 0 
+pushramp = 0 
+chanramp = 0
+' Force channel parameters
+' Initialized so origin is at 0,0 and target is 10 cm away
+' Origin of the channel, x (cm)
+chan0x = -l1 
+' Origin of the channel, y (cm)
+chan0y = -l2  
+' Target of the channel, x
+chan1x = -l1 
+' Target of the channel, y
+chan1y = -l2+10
+' Viscous field parameters
+' N / (cm/ms)
+fld11 = 0 
+fld12 = 1.5
+fld21 = -1.5
+fld22 = 0
+' Dummy errmag
+errmag = 0
+errx = 0
+erry = 0
+
+' Push to origin constants
+pushk = 1.1
+pushb = 0.0185
+' Assuming TM 250, this is 50msec
+pushstep = 1/200
+' Assuming TM 250, this is 10msec
+rampstep = 1/1
+' Assuming TM 250, this is 10msec
+dampstep = 1/1
+' Damping constants
+dampb = 10
+' Active PID constants
+kp = 1.654
+ki = 0.000724
+kd = 0.009348
+pidimax = 1.0
+
+' Program control variables
+' Turn on viscous forces
+viscon = 0 
+' Turn on damping
+dampon = 0
+' Push to origin
+pushon = 0
+' Generate force channel
+chanon = 0
+' Turn on PID (done by force and push)
+pidon = 0
+
+' Main program loop (jump here from #LOOPJP)
+#LOOP2
+
+' Get current position and velocity
+'   curtenc, curpenc in encoder counts
+'   curtvenc, curpvenc in encoder counts / ms
+curtenc = _TPX
+curpenc = _TPY
+curtvenc = _TVX / 1000
+curpvenc = _TVY / 1000
+' Convert to degrees and degrees/ms
+curt = curtenc / deg2enc
+curp = curpenc / deg2enc
+curtv = curtvenc / deg2enc
+curpv = curpvenc / deg2enc
+' Convert angles to standard (+x is 0, right hand rule) angle
+' (angles are in degrees, angular velocities are in degrees/ms)
+curt1 = tdir*curt + toffs
+curp1 = pdir*curp + poffs
+curtv1 = tdir*curtv
+curpv1 = pdir*curpv
+' Now convert to xy
+' curx and cury in cm
+' curxv and curyv in cm/ms
+curx = (l1 * @COS[curt1]) + (l2 * @COS[curp1])
+cury = (l1 * @SIN[curt1]) + (l2 * @SIN[curp1])
+curxv = ((-l1*@SIN[curt1]*curtv1) + (-l2*@SIN[curp1]*curpv1))/rad2deg
+curyv = ((l1*@COS[curt1]*curtv1) + (l2*@COS[curp1]*curpv1))/rad2deg
+
+' Initialize forces to 0 and then add in from each possible mode
+fx = 0
+fy = 0
+
+' Viscous field mode
+IF viscon <> 0
+newfx = (fld11*curxv)+(fld12*curyv)
+newfy = (fld21*curxv)+(fld22*curyv)
+fx = fx + newfx
+fy = fy + newfy
+ENDIF
+
+' Damping forces
+IF dampon <> 0
+newfx = -dampb*curxv
+newfy = -dampb*curyv
+newfx = newfx*dampramp
+newfy = newfy*dampramp
+dampramp = dampramp + dampstep
+IF dampramp > 1
+dampramp = 1
+ENDIF
+fx = fx + newfx
+fy = fy + newfy
+ENDIF
+
+' Push to origin
+IF pushon <> 0
+xerr = curx - pushx
+yerr = cury - pushy
+newfx = -(xerr*pushb)-(curxv*pushk)
+newfy = -(yerr*pushb)-(curyv*pushk)
+newfx = newfx*pushramp
+newfy = newfy*pushramp
+pushramp = pushramp + pushstep
+IF pushramp > 1
+pushramp = 1
+ENDIF
+fx = fx + newfx
+fy = fy + newfy
+ENDIF
+IF pushon == 0
+pushramp=0
+ENDIF
+
+' Force channel (depends on PID)
+IF chanon <> 0
+chanvecx = chan1x - chan0x
+chanvecy = chan1y - chan0y
+
+perpvecx = -chanvecy
+perpvecy = chanvecx
+perpmag = @SQR[(perpvecx*perpvecx)+(perpvecy*perpvecy)]
+perpvecx = perpvecx / perpmag
+perpvecy = perpvecy / perpmag
+
+posvecx = curx - chan0x
+posvecy = cury - chan0y
+errmag = (posvecx*perpvecx)+(posvecy*perpvecy)
+errx = perpvecx
+erry = perpvecy
+
+chanramp = chanramp + rampstep
+IF chanramp > 1
+chanramp = 1
+ENDIF
+errmag = errmag*chanramp
+ENDIF
+
+' Do the PID
+
+' For first PID, initialize states
+IF (chanon <> 0)
+IF pidon = 0
+pidon = 1
+istate = 0
+dstate = errmag
+ENDIF
+ENDIF
+' Turn off PID when done
+IF (chanon = 0)
+pidon = 0
+istate = 0
+dstate = errmag
+ENDIF
+
+' Calculate PID force
+IF pidon
+' Calculate the proportional term
+pterm = kp*errmag
+' Integrate the error
+istate = istate + errmag
+IF istate > pidimax
+istate = pidimax
+ENDIF
+IF istate < -pidimax
+istate = -pidimax
+ENDIF
+iterm = ki*istate
+' Do the derivative
+dterm = kd*(errmag - dstate)
+dstate = errmag
+' Now add them up
+fmag = pterm + iterm + dterm
+' And give the force the appropriate direction
+fx = fx + fmag*-errx
+fy = fy + fmag*-erry
+ENDIF
+
+' Done with forces
+'
+' Convert forces to torques and offset
+'
+' force to torque 
+tx1 = (-fx * l1 * @SIN[curt1]) + (fy * l1 * @COS[curt1])
+ty1 = (-fx * l2 * @SIN[curp1]) + (fy * l2 * @COS[curp1])
+
+' torque back from standard angles to motor directions
+tx = tx1*tdir
+ty = ty1*pdir
+
+' torque to offset
+xof = tx*t2of
+yof = ty*t2of
+
+' Don't pass the max offset
+IF xof > maxof
+yof = yof * maxof / xof
+xof = maxof
+ELSE
+IF xof < -maxof
+yof = yof * (-maxof) / xof
+xof = -maxof
+ENDIF
+ENDIF
+
+IF yof > maxof
+xof = xof * maxof / yof
+yof = maxof
+ELSE
+IF yof < -maxof
+xof = xof * (-maxof) / yof
+yof = -maxof
+ENDIF
+ENDIF
+
+' Send torques to robot
+OF xof,yof
+
+#LOOPJP
+JP #LOOP2
